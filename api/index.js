@@ -1,19 +1,31 @@
-const Express = require("express");
+const express = require("express");
+const morgan = require("morgan");
+const routes = require("./src/routes");
+const errorHandler = require("./src/utils/middlewares/errorHandler");
+const setHeaders = require("./src/utils/middlewares/setHeaders");
+const { conn } = require("./src/models/index");
+const { PORT } = process.env;
 
-const app = Express();
-
-// set headers
-
-// set routes
-
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+const app = express();
 
 // set middlewares
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.use(express.json({ limit: "50mb" }));
+app.use(morgan("dev"));
 
-// set server
+// set headers
+app.use(setHeaders);
 
-app.listen(3001, () => {
-  console.log("Server running on port 3001");
+// set routes
+app.use("/", routes);
+
+//middleware para manejar errores
+app.use(errorHandler);
+
+// set database
+conn.sync({ force: false }).then(() => {
+  console.log("Database connected");
+  app.listen(PORT || 3001, () => {
+    console.log(`Server running on port ${PORT || 3001}`);
+  });
 });
