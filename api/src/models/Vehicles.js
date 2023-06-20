@@ -83,6 +83,11 @@ module.exports = function (sequelize) {
         isIn: [["manual", "automatica"]],
       },
     },
+    puertas: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: { notEmpty: true, isInt: true },
+    },
     disponibilidad: {
       type: DataTypes.ENUM("disponible", "vendido"),
       allowNull: false,
