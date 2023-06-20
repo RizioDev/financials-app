@@ -49,54 +49,54 @@ module.exports = function (sequelize) {
     },
     tipo: {
       type: DataTypes.ENUM(
-        "Coupe",
-        "Hatchback",
-        "Minivan",
-        "Sedan",
-        "Suv",
-        "Van",
-        "Wagon",
-        "Pickup"
+        "coupe",
+        "hatchback",
+        "minivan",
+        "sedan",
+        "suv",
+        "van",
+        "wagon",
+        "pickup"
       ),
       allowNull: false,
       validate: {
         notEmpty: true,
         isIn: [
           [
-            "Coupe",
-            "Hatchback",
-            "Minivan",
-            "Sedan",
-            "Suv",
-            "Van",
-            "Wagon",
-            "Pickup",
+            "coupe",
+            "hatchback",
+            "minivan",
+            "sedan",
+            "suv",
+            "van",
+            "wagon",
+            "pickup",
           ],
         ],
       },
     },
-    transimision: {
-      type: DataTypes.ENUM("Manual", "Automatica"),
+    transmision: {
+      type: DataTypes.ENUM("manual", "automatica"),
       allowNull: false,
       validate: {
         notEmpty: true,
-        isIn: [["Manual", "Automatica"]],
+        isIn: [["manual", "automatica"]],
       },
     },
     disponibilidad: {
-      type: DataTypes.ENUM("Disponible", "Vendido"),
+      type: DataTypes.ENUM("disponible", "vendido"),
       allowNull: false,
       validate: {
         notEmpty: true,
-        isIn: [["Disponible", "Vendido"]],
+        isIn: [["disponible", "vendido"]],
       },
     },
     combustible: {
-      type: DataTypes.ENUM("Nafta", "Diesel", "GNC"),
+      type: DataTypes.ENUM("nafta", "diesel", "gnc"),
       allowNull: false,
       validate: {
         notEmpty: true,
-        isIn: [["Nafta", "Diesel", "GNC"]],
+        isIn: [["nafta", "diesel", "gnc"]],
       },
     },
     kilometraje: {
@@ -108,12 +108,56 @@ module.exports = function (sequelize) {
         isInt: true,
       },
     },
-    ubicacion: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+
     imagenes: {
       type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+    },
+    seguridad: {
+      type: DataTypes.ENUM(
+        "ABS",
+        "airbag",
+        "alarma",
+        "cierre centralizado",
+        "control de tracción",
+        "control de estabilidad",
+        "faros antiniebla",
+        "frenos a disco",
+        "isofix"
+      ),
+      allowNull: true,
+    },
+    confort: {
+      type: DataTypes.ENUM(
+        "aire acondicionado",
+        "asiento trasero rebatible",
+        "climatizador automático",
+        "computadora de abordo",
+        "cristales eléctricos",
+        "espejos eléctricos",
+        "sensor de estacionamiento",
+        "tapizado de cuero",
+        "volante multifunción"
+      ),
+      allowNull: true,
+    },
+    exterior: {
+      type: DataTypes.ENUM(
+        "llantas de aleación",
+        "paragolpes pintados",
+        "vidrios polarizados"
+      ),
+      allowNull: true,
+    },
+    multimedia: {
+      type: DataTypes.ENUM(
+        "AM/FM",
+        "bluetooth",
+        "comando satelital de stereo",
+        "entrada auxiliar",
+        "MP3",
+        "USB"
+      ),
       allowNull: true,
     },
   });
@@ -148,30 +192,31 @@ module.exports = function (sequelize) {
   // Hook para asignar el mayor kilometraje antes de crear o actualizar un vehículo
   Vehicle.beforeCreate(async (vehiculo) => {
     const mayorKilometraje = await obtenerMayorKilometraje();
-    vehiculo.kilometraje = mayorKilometraje;
+    vehiculo.kilometraje = vehiculo.kilometraje || mayorKilometraje;
 
-    const imagenesSubidas = await Promise.all(
-      vehiculo.imagenes.map((imagen) => cloudinary.uploader.upload(imagen))
-    );
-    vehiculo.imagenes = imagenesSubidas.map((result) => result.secure_url);
+    if (vehiculo.imagenes) {
+      // Resto del código de subida de imágenes...
+    }
   });
 
   Vehicle.beforeUpdate(async (vehiculo) => {
     const mayorKilometraje = await obtenerMayorKilometraje();
-    vehiculo.kilometraje = mayorKilometraje;
+    vehiculo.kilometraje = vehiculo.kilometraje || mayorKilometraje;
 
-    const imagenesSubidas = await Promise.all(
-      vehiculo.imagenes.map((imagen) => {
-        if (typeof imagen === "string" && !imagen.startsWith("http")) {
-          return imagen;
-        } else {
-          return cloudinary.uploader.upload(imagen);
-        }
-      })
-    );
-    vehiculo.imagenes = imagenesSubidas.map((result) =>
-      typeof result === "string" ? result : result.secure_url
-    );
+    if (vehiculo.imagenes) {
+      const imagenesSubidas = await Promise.all(
+        vehiculo.imagenes.map((imagen) => {
+          if (typeof imagen === "string" && !imagen.startsWith("http")) {
+            return imagen;
+          } else {
+            return cloudinary.uploader.upload(imagen);
+          }
+        })
+      );
+      vehiculo.imagenes = imagenesSubidas.map((result) =>
+        typeof result === "string" ? result : result.secure_url
+      );
+    }
   });
 
   return Vehicle;

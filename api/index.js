@@ -23,7 +23,7 @@ app.use("/", routes);
 app.use(errorHandler);
 
 // set database
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   console.log("Database connected");
   app.listen(PORT || 3001, () => {
     console.log(`Server running on port ${PORT || 3001}`);
