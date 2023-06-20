@@ -68,13 +68,25 @@ const updateVehicle = async (req, res, next) => {
       return res.status(404).send("El vehículo no existe.");
     }
 
+    if (JSON.stringify(updatedVehicle) === "{}") {
+      return res
+        .status(200)
+        .send("No se proporcionaron datos para actualizar el vehículo.");
+    }
+
+    if (JSON.stringify(updatedVehicle) === JSON.stringify(existingVehicle)) {
+      return res
+        .status(200)
+        .send("No se realizó ningún cambio en el vehículo.");
+    }
+
     await Vehicle.update(updatedVehicle, {
       where: { id },
     });
 
     const updatedRecord = await Vehicle.findByPk(id);
 
-    res.status(200).json("Vehiculo actualizado correctamente.");
+    res.status(200).send("Vehículo actualizado correctamente.");
   } catch (err) {
     next(err);
   }
