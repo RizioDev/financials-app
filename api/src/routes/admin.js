@@ -1,18 +1,30 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 const { Admin } = require("../models");
-const adminMiddleware = require("../utils/middlewares/isAdmin");
-const { createAdmin, loginAdmin } = require("../controllers/adminControllers");
+const authMiddleware = require("../utils/middlewares/authMiddleware");
+const {
+  createAdmin,
+  loginAdmin,
+  logoutAdmin,
+} = require("../controllers/adminControllers");
 
-// Ruta para crear un nuevo administrador
+// Rutas para administradores
 router.post("/create", createAdmin);
+router.post("/login", passport.authenticate("local"), loginAdmin);
 
-// Ruta para verificar la contraseña de un administrador
-router.post("/login", loginAdmin);
-
-// Ruta protegida solo para administradores
-router.get("/admin-page", adminMiddleware, (req, res) => {
+// Rutas protegidas para administradores
+router.get("/admin-page", authMiddleware, (req, res) => {
   res.send("Página de administrador");
 });
 
+router.get("/admin-settings", authMiddleware, (req, res) => {
+  res.send("Configuración de administrador");
+});
+
+// Ruta para verificar la contraseña de un administrador
+router.post("/login", authMiddleware, loginAdmin);
+
+//Ruta para desloguear a un administrador
+router.get("/logout", authMiddleware, logoutAdmin);
 module.exports = router;

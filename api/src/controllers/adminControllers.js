@@ -53,4 +53,10 @@ const loginAdmin = async (req, res) => {
   }
 };
 
-module.exports = { createAdmin, loginAdmin };
+const logoutAdmin = (req, res) => {
+  req.logout();
+  res.redirect("/");
+  // Otra lógica adicional después del deslogueo si es necesario
+};
+
+module.exports = { createAdmin, loginAdmin, logoutAdmin };

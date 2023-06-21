@@ -16,22 +16,12 @@ module.exports = function (sequelize) {
       allowNull: false,
       validate: {
         notEmpty: true,
+        len: [6, 20], // Longitud mínima y máxima permitida para la contraseña
       },
     },
   });
 
-  // Método para verificar la contraseña ingresada
-  Admin.prototype.isValidPassword = async function (password) {
-    return await bcrypt.compare(password, this.password);
-  };
-
-  // Hook para encriptar la contraseña antes de guardarla en la base de datos
-  Admin.addHook("beforeSave", async (admin) => {
-    if (admin.changed("password")) {
-      const salt = await bcrypt.genSalt(10);
-      admin.password = await bcrypt.hash(admin.password, salt);
-    }
-  });
+  // ...
 
   return Admin;
 };
