@@ -1,5 +1,7 @@
 const { Admin } = require("../models");
+const bcrypt = require("bcrypt");
 
+// Función para crear un nuevo administrador
 // Función para crear un nuevo administrador
 const createAdmin = async (req, res) => {
   try {
@@ -13,8 +15,19 @@ const createAdmin = async (req, res) => {
         .json({ error: "El nombre de usuario ya está en uso." });
     }
 
-    // Crear el nuevo administrador
-    const admin = await Admin.create({ username, password });
+    // Generar un hash de la contraseña
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Crear el nuevo administrador con la contraseña encriptada
+    const admin = await Admin.create({ username, password: hashedPassword });
+
+    // Almacenar el ID del administrador en la sesión
+    req.session.adminId = admin.id;
+
+    console.log(
+      "ID del administrador almacenado en la sesión:",
+      req.session.adminId
+    );
 
     res
       .status(201)
@@ -30,19 +43,20 @@ const createAdmin = async (req, res) => {
 // Función para verificar la contraseña de un administrador
 const loginAdmin = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    // El administrador ya ha sido autenticado por Passport.js
+    const admin = req.user;
 
-    // Buscar el administrador por nombre de usuario
-    const admin = await Admin.findOne({ where: { username } });
-    if (!admin) {
-      return res.status(404).json({ error: "El administrador no existe." });
-    }
+    console.log("Datos del administrador autenticado:", admin);
 
-    // Verificar la contraseña
-    const isValidPassword = await admin.isValidPassword(password);
-    if (!isValidPassword) {
-      return res.status(401).json({ error: "Contraseña incorrecta." });
-    }
+    // Almacenar el ID del administrador en la sesión
+    req.session.adminId = admin.id;
+
+    console.log(
+      "ID del administrador almacenado en la sesión:",
+      req.session.adminId
+    );
+
+    console.log("Datos del administrador autenticado:", admin);
 
     res.status(200).json({ message: "Inicio de sesión exitoso.", admin });
   } catch (error) {
@@ -54,6 +68,9 @@ const loginAdmin = async (req, res) => {
 };
 
 const logoutAdmin = (req, res) => {
+  // Eliminar el ID del administrador de la sesión
+  delete req.session.adminId;
+
   req.logout();
   res.redirect("/");
   // Otra lógica adicional después del deslogueo si es necesario

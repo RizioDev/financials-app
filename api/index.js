@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const { conn } = require("./src/models/index");
@@ -10,7 +11,6 @@ const { PORT } = process.env;
 const routes = require("./src/routes");
 const errorHandler = require("./src/utils/middlewares/errorHandler");
 const setHeaders = require("./src/utils/middlewares/setHeaders");
-const authMiddleware = require("./src/utils/middlewares/authMiddleware");
 
 // Configura Passport.js
 require("./src/utils/config/passport")(passport);
@@ -28,12 +28,19 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
+    cookie: {
+      secure: true, // Solo enviar cookies a través de HTTPS
+      httpOnly: true, // Las cookies no son accesibles mediante JavaScript en el navegador
+    },
   })
 );
 
 // Inicializa Passport.js
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Parsea las cookies
+app.use(cookieParser());
 
 // Set middlewares
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));

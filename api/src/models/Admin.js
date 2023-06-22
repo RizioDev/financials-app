@@ -6,22 +6,19 @@ module.exports = function (sequelize) {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-      validate: {
-        notEmpty: true,
-      },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [6, 20], // Longitud mínima y máxima permitida para la contraseña
-      },
     },
   });
 
-  // ...
+  Admin.prototype.isValidPassword = async function (password) {
+    // Comparar la contraseña proporcionada con la almacenada en la base de datos
+    console.log("Contraseña ingresada:", password);
+    console.log("Contraseña almacenada:", this.password);
+    return await bcrypt.compare(password, this.password);
+  };
 
   return Admin;
 };

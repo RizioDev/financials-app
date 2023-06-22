@@ -1,5 +1,7 @@
-const authMiddleware = (req, res, next) => {
+const isAuthenticated = (req, res, next) => {
   // Verificar si el administrador está autenticado utilizando Passport.js
+  console.log("isAuthenticated:", req.isAuthenticated());
+
   if (req.isAuthenticated()) {
     // Si el administrador está autenticado, llamar a next() para pasar al siguiente middleware
     return next();
@@ -11,4 +13,4 @@ const authMiddleware = (req, res, next) => {
   // res.redirect("/login");
 };
 
-module.exports = authMiddleware;
+module.exports = isAuthenticated;
