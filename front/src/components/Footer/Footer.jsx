@@ -18,7 +18,6 @@ const Footer = () => {
           </span>
         </a>
         <p class="my-6 text-gray-500 dark:text-gray-400">
-          ¡Vende tu auto fácilmente con Financials Motors! <br />
           Consignación física o virtual para una venta rápida. Expertos en
           marketing y vendedores capacitados. <br />
           ¡No esperes más, vende tu auto ahora!

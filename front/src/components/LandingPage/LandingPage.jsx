@@ -2,6 +2,7 @@ import React from "react";
 import CarouselMarcas from "../Carousel/CarouselMarcas";
 import Footer from "../Footer/Footer";
 import Reviews from "../Reviews/Reviews";
+import Consigna from "../Consigna/Consigna";
 
 const LandingPage = () => {
   return (
@@ -51,6 +52,7 @@ const LandingPage = () => {
         </div>
       </section>
       <CarouselMarcas />
+      <Consigna />
       <Reviews />
       <Footer />
     </div>

@@ -11,41 +11,23 @@ module.exports = function (sequelize) {
     },
     marca: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
+      allowNull: true,
     },
     modelo: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
+      allowNull: true,
     },
     año: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        isInt: true,
-      },
+      allowNull: true,
     },
     precio: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        isInt: true,
-      },
+      allowNull: true,
     },
     estado: {
       type: DataTypes.ENUM("0km", "usado"),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        isIn: [["0km", "usado"]],
-      },
+      allowNull: true,
     },
     tipo: {
       type: DataTypes.ENUM(
@@ -58,80 +40,34 @@ module.exports = function (sequelize) {
         "wagon",
         "pickup"
       ),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        isIn: [
-          [
-            "coupe",
-            "hatchback",
-            "minivan",
-            "sedan",
-            "suv",
-            "van",
-            "wagon",
-            "pickup",
-          ],
-        ],
-      },
+      allowNull: true,
     },
     transmision: {
       type: DataTypes.ENUM("manual", "automatica"),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        isIn: [["manual", "automatica"]],
-      },
+      allowNull: true,
     },
     puertas: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: { notEmpty: true, isInt: true },
+      allowNull: true,
     },
     disponibilidad: {
       type: DataTypes.ENUM("disponible", "vendido"),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        isIn: [["disponible", "vendido"]],
-      },
+      allowNull: true,
     },
     combustible: {
       type: DataTypes.ENUM("nafta", "diesel", "gnc"),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        isIn: [["nafta", "diesel", "gnc"]],
-      },
+      allowNull: true,
     },
     kilometraje: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       defaultValue: 0,
-      validate: {
-        notEmpty: true,
-        isInt: true,
-      },
     },
-
     imagenes: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true,
     },
-    seguridad: {
-      type: DataTypes.ENUM(
-        "ABS",
-        "airbag",
-        "alarma",
-        "cierre centralizado",
-        "control de tracción",
-        "control de estabilidad",
-        "faros antiniebla",
-        "frenos a disco",
-        "isofix"
-      ),
-      allowNull: true,
-    },
+
     confort: {
       type: DataTypes.ENUM(
         "aire acondicionado",

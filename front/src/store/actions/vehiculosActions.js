@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const GET_VEHICULOS = "GET_VEHICULOS";
 export const UPDATE_VEHICULO = "UPDATE_VEHICULO";
+export const ADD_VEHICULO = "ADD_VEHICULO";
 
 export function getVehiculos() {
   return async function (dispatch) {
@@ -20,6 +21,23 @@ export function updateVehiculo(id, updatedVehicle) {
       );
       // Si la respuesta es exitosa, puedes despachar una acción para actualizar el estado en Redux si es necesario
       // dispatch({ type: UPDATE_VEHICULO, payload: response.data });
+      console.log(response.data); // Puedes mostrar el mensaje de respuesta en la consola o realizar cualquier otra acción necesaria
+    } catch (error) {
+      // Manejar el error si ocurre alguna excepción durante la solicitud
+      console.error(error);
+    }
+  };
+}
+
+export function addVehiculo(vehiculo) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/vehiculos",
+        vehiculo
+      );
+      // Si la respuesta es exitosa, puedes despachar una acción para actualizar el estado en Redux si es necesario
+      // dispatch({ type: ADD_VEHICULO, payload: response.data });
       console.log(response.data); // Puedes mostrar el mensaje de respuesta en la consola o realizar cualquier otra acción necesaria
     } catch (error) {
       // Manejar el error si ocurre alguna excepción durante la solicitud
