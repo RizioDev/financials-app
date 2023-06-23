@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getVehiculos } from "../../store/actions/vehiculosActions";
+import Footer from "../Footer/Footer";
 
 const VehiculosCards = ({ vehiculos, getVehiculos }) => {
   useEffect(() => {
@@ -8,10 +9,10 @@ const VehiculosCards = ({ vehiculos, getVehiculos }) => {
   }, []);
 
   return (
-    <div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {vehiculos.map((vehiculo) => {
         return (
-          <div key={vehiculo.id}>
+          <div key={vehiculo.id} className="bg-white p-4 shadow-md">
             <p>{vehiculo.marca}</p>
             <p>{vehiculo.modelo}</p>
           </div>
