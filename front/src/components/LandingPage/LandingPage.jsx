@@ -7,22 +7,23 @@ import Consigna from "../Consigna/Consigna";
 const LandingPage = () => {
   return (
     <div>
-      <section class="bg-white dark:bg-gray-900">
+      <section class="bg-white dark:bg-gray-900 mt-[40px] sm:mt-[10px] md:mt-[150px] lg:mt-[30px] xl:mt-[30px] 2xl:mt-[90px]">
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
           <div class="mr-auto place-self-center lg:col-span-7">
             <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
               Compra o vende tu usado en tiempo récord.
             </h1>
             <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-              ¡Compra, vende y consigna autos usados y 0km sin complicaciones!
-              Expertos en asesoramiento personalizado, todos los bancos, solo
-              con DNI y sin intermediarios.
+              En nuestro compromiso por simplificar el proceso, puedes adquirir
+              tu auto 0km en un plazo de 7 a 15 días. Nos encargamos de todos
+              los trámites necesarios para que puedas disfrutar rápidamente de
+              tu nuevo vehículo
             </p>
             <a
-              href="/consigna"
+              href="/comprar"
               class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
             >
-              Consignar
+              Elegí tu proximo 0km
               <svg
                 class="w-5 h-5 ml-2 -mr-1"
                 fill="currentColor"
@@ -40,7 +41,7 @@ const LandingPage = () => {
               href="/financia-tu-vehiculo"
               class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
             >
-              Financia tu vehiculo
+              Explora nuestros usados
             </a>
           </div>
           <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
