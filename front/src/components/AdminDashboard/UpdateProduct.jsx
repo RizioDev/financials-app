@@ -23,12 +23,12 @@ const UpdateProduct = ({ vehiculo, setShowUpdateForm, updateVehiculo }) => {
     });
   };
 
-  const handleChangeAnio = (e) => {
-    setSelectedVehicle({
-      ...selectedVehicle,
-      anio: e.target.value,
-    });
-  };
+  // const handleChangeAnio = (e) => {
+  //   setSelectedVehicle({
+  //     ...selectedVehicle,
+  //     anio: e.target.value,
+  //   });
+  // };
 
   const handleChangePrecio = (e) => {
     setSelectedVehicle({
@@ -37,12 +37,12 @@ const UpdateProduct = ({ vehiculo, setShowUpdateForm, updateVehiculo }) => {
     });
   };
 
-  const handleChangeEstado = (e) => {
-    setSelectedVehicle({
-      ...selectedVehicle,
-      estado: e.target.value,
-    });
-  };
+  // const handleChangeEstado = (e) => {
+  //   setSelectedVehicle({
+  //     ...selectedVehicle,
+  //     estado: e.target.value,
+  //   });
+  // };
 
   const handleChangeTipo = (e) => {
     setSelectedVehicle({
@@ -51,12 +51,12 @@ const UpdateProduct = ({ vehiculo, setShowUpdateForm, updateVehiculo }) => {
     });
   };
 
-  const handleChangePuertas = (e) => {
-    setSelectedVehicle({
-      ...selectedVehicle,
-      puertas: e.target.value,
-    });
-  };
+  // const handleChangePuertas = (e) => {
+  //   setSelectedVehicle({
+  //     ...selectedVehicle,
+  //     puertas: e.target.value,
+  //   });
+  // };
 
   const handleChangeDisponibilidad = (e) => {
     setSelectedVehicle({
@@ -65,12 +65,12 @@ const UpdateProduct = ({ vehiculo, setShowUpdateForm, updateVehiculo }) => {
     });
   };
 
-  const handleChangeCombustible = (e) => {
-    setSelectedVehicle({
-      ...selectedVehicle,
-      combustible: e.target.value,
-    });
-  };
+  // const handleChangeCombustible = (e) => {
+  //   setSelectedVehicle({
+  //     ...selectedVehicle,
+  //     combustible: e.target.value,
+  //   });
+  // };
 
   const handleChangeKilometraje = (e) => {
     setSelectedVehicle({

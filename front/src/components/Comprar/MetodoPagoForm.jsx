@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import VehiculoUsadoForm from "./VehiculoUsadoForm";
-import Footer from "../Footer/Footer";
-import HowWork from "../HowWork/HowWork";
 import ClienteForm from "./ClienteForm";
 import FinanciarForm from "./FinanciarForm";
 

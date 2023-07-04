@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Footer from "../Footer/Footer";
 import HowWork from "../HowWork/HowWork";
 import MetodoPagoComponent from "./MetodoPagoForm";
-import VehiculoUsadoComponent from "./VehiculoUsadoForm";
 
 const Comprar = () => {
   const [seleccion, setSeleccion] = useState(""); // Estado para almacenar la selección del usuario

@@ -1,18 +1,28 @@
 import React, { useState } from "react";
+import ClienteForm from "./ClienteForm";
 
 const VehiculoUsadoForm = () => {
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
+  const [mostrarClienteForm, setMostrarClienteForm] = useState(false); // Estado para controlar la visualización del componente ClienteForm
 
   const handleMarcaChange = (event) => {
     setMarca(event.target.value);
-    setModelo(""); // Restablecer el valor del modelo cuando se cambia la marca
+    setModelo("");
   };
 
   const handleModeloChange = (event) => {
     setModelo(event.target.value);
-    setModelo();
   };
+
+  const handleSiguienteClick = (event) => {
+    event.preventDefault();
+    setMostrarClienteForm(true); // Cambiar el estado para mostrar el componente ClienteForm
+  };
+
+  if (mostrarClienteForm) {
+    return <ClienteForm />; // Mostrar el componente ClienteForm si el estado mostrarClienteForm es true
+  }
 
   return (
     <div>
@@ -311,26 +321,19 @@ const VehiculoUsadoForm = () => {
             </div>
             <div>
               <label
-                htmlFor="versionLabel"
+                htmlFor="version"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:ml-1 ml-1"
               >
                 Version
               </label>
-              <select
-                id="versionSelect"
-                value={modelo}
-                onChange={handleModeloChange}
+              <input
+                type="ver"
+                id="version"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                {" "}
-                {modelo === "Gol" && (
-                  <>
-                    <option value="marca2" selected>
-                      Gol trend
-                    </option>
-                  </>
-                )}
-              </select>
+                placeholder="1.0 5 puertas"
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                required
+              />
             </div>
             <div>
               <label
@@ -360,15 +363,12 @@ const VehiculoUsadoForm = () => {
               </select>
             </div>
             <div>
-              <label
-                htmlFor="telefono"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:ml-1 ml-1"
-              >
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:ml-1 ml-1">
                 Codigo postal del vehiculo
               </label>
               <input
-                type="tel"
-                id="telefono"
+                type="cp"
+                id="codigopostal"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="1879"
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
@@ -380,9 +380,10 @@ const VehiculoUsadoForm = () => {
           <div className="text-center">
             <button
               type="submit"
+              onClick={handleSiguienteClick}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Enviar
+              Siguiente
             </button>
           </div>
         </form>
