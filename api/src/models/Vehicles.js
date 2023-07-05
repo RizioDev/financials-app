@@ -26,7 +26,7 @@ module.exports = function (sequelize) {
       allowNull: true,
     },
     estado: {
-      type: DataTypes.ENUM("0km", "usado"),
+      type: DataTypes.ENUM("nuevo", "usado"),
       allowNull: true,
     },
     tipo: {
@@ -52,6 +52,7 @@ module.exports = function (sequelize) {
     },
     disponibilidad: {
       type: DataTypes.ENUM("disponible", "vendido"),
+      defaultValue: "disponible",
       allowNull: true,
     },
     combustible: {
