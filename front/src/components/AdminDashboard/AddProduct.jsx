@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { addVehiculo } from "../../store/actions/vehiculosActions";
 import VehicleInput from "./VehicleInput";
+import swal from "sweetalert2";
 
 const AddVehicle = ({ addVehiculo }) => {
   const initialState = {
@@ -38,8 +39,20 @@ const AddVehicle = ({ addVehiculo }) => {
     addVehiculo(newVehicle);
     // Restablecer el formulario
     setNewVehicle(initialState);
-  };
 
+    // Mostrar SweetAlert
+    swal
+      .fire({
+        icon: "success",
+        title: "Vehículo agregado correctamente",
+        showConfirmButton: false,
+        timer: 2000, // El SweetAlert se cierra después de 2 segundos
+      })
+      .then(() => {
+        // Redireccionar al administrador del panel
+        window.location.href = "http://localhost:3000/admin-dashboard";
+      });
+  };
   return (
     <div>
       <section className="bg-white dark:bg-gray-900">
@@ -228,6 +241,11 @@ const AddVehicle = ({ addVehiculo }) => {
                 </button>
               </div>
             </form>
+            <a href="/admin-dashboard">
+              <button className="w-full md:w-auto bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                Volver
+              </button>
+            </a>
           </div>
         </div>
       </section>

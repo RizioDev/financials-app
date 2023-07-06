@@ -23,12 +23,12 @@ const UpdateProduct = ({ vehiculo, setShowUpdateForm, updateVehiculo }) => {
     });
   };
 
-  // const handleChangeAnio = (e) => {
-  //   setSelectedVehicle({
-  //     ...selectedVehicle,
-  //     anio: e.target.value,
-  //   });
-  // };
+  const handleChangeAnio = (e) => {
+    setSelectedVehicle({
+      ...selectedVehicle,
+      año: e.target.value,
+    });
+  };
 
   const handleChangePrecio = (e) => {
     setSelectedVehicle({
@@ -100,7 +100,7 @@ const UpdateProduct = ({ vehiculo, setShowUpdateForm, updateVehiculo }) => {
             Editar vehiculo
           </h2>
           <form onSubmit={handleUpdate}>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
               <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 <label
                   htmlFor="marca"
@@ -211,6 +211,22 @@ const UpdateProduct = ({ vehiculo, setShowUpdateForm, updateVehiculo }) => {
                   placeholder="Ejemplo: 50000, 100000"
                   onChange={handleChangeKilometraje}
                   required=""
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="año"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Año
+                </label>
+                <input
+                  type="number"
+                  name="año"
+                  id="año"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  value={selectedVehicle.año}
+                  onChange={handleChangeAnio}
                 />
               </div>
               {/* Resto de los campos de entrada */}

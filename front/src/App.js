@@ -8,6 +8,7 @@ import Admin from "./components/AdminDashboard/Admin";
 import AddProduct from "./components/AdminDashboard/AddProduct";
 import Error from "./components/Error/Error";
 import Comprar from "./components/Comprar/Comprar";
+import UpdateProduct from "./components/AdminDashboard/UpdateProduct";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/financia-tu-vehiculo" element={<Financia />} />
           <Route path="/admin-dashboard" element={<Admin />} />
           <Route path="/admin-add" element={<AddProduct />} />
+          <Route path="/admin-edit/:id" element={<UpdateProduct />} />
           <Route path="/comprar" element={<Comprar />} />
           <Route path="*" element={<Error />} />
 

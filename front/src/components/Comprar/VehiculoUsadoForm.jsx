@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import ClienteForm from "./ClienteForm";
 
-const VehiculoUsadoForm = () => {
+const VehiculoUsadoForm = ({ pago, seleccion }) => {
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
-  const [mostrarClienteForm, setMostrarClienteForm] = useState(false); // Estado para controlar la visualización del componente ClienteForm
+  const [year, setYear] = useState("");
+  const [version, setVersion] = useState("");
+  const [color, setColor] = useState("");
+  const [cp, setCp] = useState("");
+  const [mostrarClienteForm, setMostrarClienteForm] = useState(false);
+  const [formularioData, setFormularioData] = useState({});
 
   const handleMarcaChange = (event) => {
     setMarca(event.target.value);
@@ -15,24 +20,60 @@ const VehiculoUsadoForm = () => {
     setModelo(event.target.value);
   };
 
+  const handleYearChange = (event) => {
+    setYear(event.target.value);
+  };
+
+  const handleVersionChange = (event) => {
+    setVersion(event.target.value);
+  };
+
+  const handleColorChange = (event) => {
+    setColor(event.target.value);
+  };
+
+  const handleCpChange = (event) => {
+    setCp(event.target.value);
+  };
+
   const handleSiguienteClick = (event) => {
     event.preventDefault();
-    setMostrarClienteForm(true); // Cambiar el estado para mostrar el componente ClienteForm
+    const formData = {
+      marca,
+      modelo,
+      year,
+      version,
+      color,
+      cp,
+    };
+    setFormularioData(formData);
+    setMostrarClienteForm(true);
   };
 
   if (mostrarClienteForm) {
-    return <ClienteForm />; // Mostrar el componente ClienteForm si el estado mostrarClienteForm es true
+    return (
+      <ClienteForm
+        formularioData={formularioData}
+        pago={pago}
+        seleccion={seleccion}
+      />
+    );
   }
 
   return (
     <div>
-      <div className=" mt-[11px] sm:mt-[80px] md:mt-[150px] lg:mt-[190px] xl:mt-[90px] 2xl:mt-[250px]">
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-center text-green-600 md:text-5xl lg:text-6xl dark:text-white">
-          Completa los datos y te llamamos
+      <div className=" mt-[11px] sm:mt-[80px] md:mt-[150px] lg:mt-[190px] xl:mt-[30px] 2xl:mt-[160px]">
+        <img
+          className="w-20 h-24 md:w-20 md:h-24 mx-auto"
+          src="https://financialsmotors.com.ar/wp-content/uploads/2022/12/cropped-fmotors_Mesa-de-trabajo-1-2-80x106.png"
+          alt="Imagen"
+        />
+        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-center text-orange-400 md:text-5xl lg:text-6xl dark:text-white">
+          Completa los datos de tu vehiculo
         </h1>
         <p className="mb-6 text-lg font-normal text-center text-gray-700 lg:text-xl sm:px-6 md:px-8 xl:px-48 dark:text-gray-400">
-          Proporciona toda la información solicitada para que podamos ponernos
-          en contacto contigo y armar un plan especial para ti.
+          Proporciona toda la información solicitada para que podamos ofertar un
+          precio justo por tu vehiculo.
         </p>
         <form>
           <div className="grid gap-2 mb-3 md:grid-cols-2">
@@ -45,6 +86,8 @@ const VehiculoUsadoForm = () => {
               </label>
               <select
                 id="year"
+                value={year}
+                onChange={handleYearChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 <option value="2010">2010</option>
@@ -327,8 +370,10 @@ const VehiculoUsadoForm = () => {
                 Version
               </label>
               <input
-                type="ver"
+                type="text"
                 id="version"
+                value={version}
+                onChange={handleVersionChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="1.0 5 puertas"
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
@@ -344,6 +389,8 @@ const VehiculoUsadoForm = () => {
               </label>
               <select
                 id="color"
+                value={color}
+                onChange={handleColorChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
               >
@@ -369,6 +416,8 @@ const VehiculoUsadoForm = () => {
               <input
                 type="cp"
                 id="codigopostal"
+                value={cp}
+                onChange={handleCpChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="1879"
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
@@ -381,7 +430,7 @@ const VehiculoUsadoForm = () => {
             <button
               type="submit"
               onClick={handleSiguienteClick}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white bg-orange-500 hover:bg-orange-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Siguiente
             </button>

@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
-import emailjs from "@emailjs/browser";
+import React, { useRef } from "react";
 import Swal from "sweetalert2";
+import emailjs from "emailjs-com";
 
-const FinanciarForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    locality: "",
-    dni: "",
-    financingAmount: "100",
-  });
+const FinanciarForm = ({ pago, seleccion }) => {
+  const form = useRef();
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Evita que se envíe el formulario automáticamente
+    event.preventDefault();
+
+    // Obtener los valores del formulario
+    const formData = new FormData(form.current);
+    const formDataObject = Object.fromEntries(formData.entries());
 
     // Envía los datos mediante emailjs
     const serviceID = "service_o2d02zx";
@@ -21,7 +18,7 @@ const FinanciarForm = () => {
     const userID = "K_UpNO3Y2pH0jW9Iu";
 
     emailjs
-      .send(serviceID, templateID, formData, userID)
+      .send(serviceID, templateID, formDataObject, userID)
       .then(() => {
         console.log("Datos enviados correctamente");
         // Muestra la alerta exitosa utilizando SweetAlert2
@@ -44,21 +41,21 @@ const FinanciarForm = () => {
       });
   };
 
-  useEffect(() => {
-    // Realizar alguna acción adicional al cambiar los datos del formulario
-    console.log(formData);
-  }, [formData]);
-
   return (
-    <div className=" mt-[11px] sm:mt-[80px] md:mt-[150px] lg:mt-[190px] xl:mt-[90px] 2xl:mt-[250px]">
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-center text-green-600 md:text-5xl lg:text-6xl dark:text-white">
+    <div className=" mt-[11px] sm:mt-[80px] md:mt-[150px] lg:mt-[190px] xl:mt-[20px] 2xl:mt-[190px]">
+      <img
+        className="w-20 h-24 md:w-20 md:h-24 mx-auto"
+        src="https://financialsmotors.com.ar/wp-content/uploads/2022/12/cropped-fmotors_Mesa-de-trabajo-1-2-80x106.png"
+        alt="Imagen"
+      />
+      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-center text-orange-400 md:text-5xl lg:text-6xl dark:text-white">
         Completá los datos y te llamamos
       </h1>
       <p className="mb-6 text-lg font-normal text-center text-gray-700 lg:text-xl sm:px-6 md:px-8 xl:px-48 dark:text-gray-400">
         Proporciona toda la información solicitada para que podamos ponernos en
         contacto contigo y armar un plan especial para ti.
       </p>
-      <form onSubmit={handleSubmit}>
+      <form ref={form} onSubmit={handleSubmit}>
         <div className="grid gap-2 mb-3 md:grid-cols-2">
           <div>
             <label className="block ml-1 mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -67,6 +64,7 @@ const FinanciarForm = () => {
             <input
               type="text"
               id="first_name"
+              name="first_name"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Miguel Angel"
               required
@@ -79,6 +77,7 @@ const FinanciarForm = () => {
             <input
               type="text"
               id="last_name"
+              name="last_name"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
               placeholder="Perez"
               required
@@ -91,6 +90,7 @@ const FinanciarForm = () => {
             <input
               type="number"
               id="phone_number"
+              name="phoneNumber"
               className="bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="011 1234-5678"
               required
@@ -103,6 +103,7 @@ const FinanciarForm = () => {
             <input
               type="text"
               id="localidad"
+              name="localidad"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder=" La Matanza, La Plata, Lanús"
               required
@@ -115,6 +116,7 @@ const FinanciarForm = () => {
             <input
               type="number"
               id="dni"
+              name="dni"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="12.345.678"
               required
@@ -132,11 +134,19 @@ const FinanciarForm = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             >
-              <option value="100">100.000 - 500.000</option>
-              <option value="200">500.000 - 1.500.000</option>
-              <option value="300">1.500.000 - 3.000.000</option>
-              <option value="400">3.000.000 - 5.000.000</option>
-              <option value="500">5.000.000 - 10.000.000</option>
+              <option value="100.000 - 500.000">100.000 - 500.000</option>
+              <option value="200500.000 - 1.500.000">
+                500.000 - 1.500.000
+              </option>
+              <option value="1.500.000 - 3.000.000">
+                1.500.000 - 3.000.000
+              </option>
+              <option value="3.000.000 - 5.000.000">
+                3.000.000 - 5.000.000
+              </option>
+              <option value="5.000.000 - 10.000.000">
+                5.000.000 - 10.000.000
+              </option>
             </select>
           </div>
         </div>
@@ -144,7 +154,7 @@ const FinanciarForm = () => {
         <div className="text-center">
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-orange-500 hover:bg-orange-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Enviar
           </button>

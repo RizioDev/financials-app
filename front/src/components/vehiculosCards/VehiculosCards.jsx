@@ -32,7 +32,7 @@ const VehiculosCards = ({ vehiculos, getVehiculos }) => {
               </a>
               <a href="/a">
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                  {vehiculo.año} | {vehiculo.kilometraje}
+                  {vehiculo.año} | {vehiculo.kilometraje} km
                 </h5>
               </a>
               <div className="flex items-center mt-2.5 mb-5">
