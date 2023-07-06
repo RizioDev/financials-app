@@ -16,6 +16,9 @@ const Detail = ({ vehiculos }) => {
     <div>
       <div className="max-w-md mx-auto bg-white shadow-md p-8">
         <img src={foto} alt={vehiculo.id} />
+        {vehiculo.disponibilidad === "vendido" && (
+          <h1 className="text-red-500">Vendido</h1>
+        )}
 
         <h2 className="text-2xl font-bold mb-4">
           {vehiculo.marca} {vehiculo.modelo}{" "}

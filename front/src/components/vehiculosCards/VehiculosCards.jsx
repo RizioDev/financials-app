@@ -27,6 +27,9 @@ const VehiculosCards = ({ vehiculos, getVehiculos }) => {
               />
             </Link>
             <div className="px-5 pb-5">
+              {vehiculo.disponibilidad === "vendido" && (
+                <h1 className="text-red-500">Vendido</h1>
+              )}
               <Link to={`/detail/${vehiculo.id}`}>
                 {" "}
                 {/* Utiliza Link en lugar de 'a' */}

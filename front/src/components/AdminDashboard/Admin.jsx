@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getVehiculos as fetchVehiculos } from "../../store/actions/vehiculosActions";
-import { BsFillPencilFill, BsX } from "react-icons/bs";
+import { BsFillPencilFill, BsX, BsFillTrashFill } from "react-icons/bs";
 import UpdateProduct from "./UpdateProduct";
 
 const Admin = ({ vehiculos, getVehiculos }) => {
@@ -17,6 +17,10 @@ const Admin = ({ vehiculos, getVehiculos }) => {
   const handleEditClick = (vehiculo) => {
     setSelectedVehicle(vehiculo);
     setShowModal(true);
+  };
+
+  const handleDeleteClick = (vehiculo) => {
+    // Aquí puedes agregar la lógica para eliminar el vehículo
   };
 
   const handleCloseModal = () => {
@@ -117,89 +121,99 @@ const Admin = ({ vehiculos, getVehiculos }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {vehiculos.map((vehiculo) => (
-                    <>
-                      <tr className="border-b dark:border-gray-700">
-                        <th
-                          scope="row"
-                          className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                          {vehiculo.modelo}
-                        </th>
-                        <td className="px-4 py-3">{vehiculo.marca}</td>
-                        <td className="px-4 py-3">{vehiculo.combustible}</td>
-                        <td className="px-4 py-3 max-w-[12rem] truncate">
-                          {vehiculo.kilometraje}
-                        </td>
-                        <td className="px-4 py-3">${vehiculo.precio}</td>
-                        <td className="px-4 py-3 flex items-center justify-end">
-                          {/* <!-- Update product --> */}
-                          <button
-                            id="apple-imac-27-dropdown-button"
-                            data-dropdown-toggle="apple-imac-27-dropdown"
-                            className="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                            type="button"
-                            onClick={() => handleEditClick(vehiculo)}
+                  {vehiculos
+                    .filter((vehiculo) => vehiculo.disponibilidad !== "vendido")
+                    .map((vehiculo) => (
+                      <>
+                        <tr className="border-b dark:border-gray-700">
+                          <th
+                            scope="row"
+                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                           >
-                            <BsFillPencilFill classNameName="w-5 h-5 text-gray-500 hover:text-gray-700 transition-colors duration-300" />
-                          </button>
-                          <div
-                            id="apple-imac-27-dropdown"
-                            className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-                          >
-                            <ul
-                              className="py-1 text-sm"
-                              aria-labelledby="apple-imac-27-dropdown-button"
+                            {vehiculo.modelo}
+                          </th>
+                          <td className="px-4 py-3">{vehiculo.marca}</td>
+                          <td className="px-4 py-3">{vehiculo.combustible}</td>
+                          <td className="px-4 py-3 max-w-[12rem] truncate">
+                            {vehiculo.kilometraje}
+                          </td>
+                          <td className="px-4 py-3">${vehiculo.precio}</td>
+                          <td className="px-4 py-3 flex items-center justify-end">
+                            {/* <!-- Update product --> */}
+
+                            <button
+                              id="apple-imac-27-dropdown-button"
+                              data-dropdown-toggle="apple-imac-27-dropdown"
+                              className="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                              type="button"
+                              onClick={() => handleEditClick(vehiculo)}
                             >
-                              <li>
+                              <BsFillPencilFill classNameName="w-5 h-5 text-gray-500 hover:text-gray-700 transition-colors duration-300" />
+                            </button>
+                            <button
+                              type="button"
+                              className="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                              onClick={() => handleDeleteClick(vehiculo)}
+                            >
+                              <BsFillTrashFill />
+                            </button>
+                            <div
+                              id="apple-imac-27-dropdown"
+                              className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+                            >
+                              <ul
+                                className="py-1 text-sm"
+                                aria-labelledby="apple-imac-27-dropdown-button"
+                              >
+                                <li>
+                                  <button
+                                    type="button"
+                                    data-modal-target="updateProductModal"
+                                    data-modal-toggle="updateProductModal"
+                                    className="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200"
+                                  >
+                                    <svg
+                                      className="w-4 h-4 mr-2"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      viewbox="0 0 20 20"
+                                      fill="currentColor"
+                                      aria-hidden="true"
+                                    >
+                                      <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                      <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                      />
+                                    </svg>
+                                    Edit
+                                  </button>
+                                </li>
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                        {showModal && (
+                          <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                            <div className="absolute w-full h-full flex items-center justify-center">
+                              <div className="relative bg-white rounded-lg max-w-md">
                                 <button
                                   type="button"
-                                  data-modal-target="updateProductModal"
-                                  data-modal-toggle="updateProductModal"
-                                  className="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200"
+                                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-700"
+                                  onClick={handleCloseModal}
                                 >
-                                  <svg
-                                    className="w-4 h-4 mr-2"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewbox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true"
-                                  >
-                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                    <path
-                                      fill-rule="evenodd"
-                                      clip-rule="evenodd"
-                                      d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                    />
-                                  </svg>
-                                  Edit
+                                  <BsX className="w-5 h-5" />
                                 </button>
-                              </li>
-                            </ul>
-                          </div>
-                        </td>
-                      </tr>
-                      {showModal && (
-                        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-                          <div className="absolute w-full h-full flex items-center justify-center">
-                            <div className="relative bg-white rounded-lg max-w-md">
-                              <button
-                                type="button"
-                                className="absolute top-3 right-3 text-gray-400 hover:text-gray-700"
-                                onClick={handleCloseModal}
-                              >
-                                <BsX className="w-5 h-5" />
-                              </button>
-                              <UpdateProduct
-                                vehiculo={selectedVehicle}
-                                setShowUpdateForm={setShowModal}
-                              />
+                                <UpdateProduct
+                                  vehiculo={selectedVehicle}
+                                  setShowUpdateForm={setShowModal}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </>
-                  ))}
+                        )}
+                      </>
+                    ))}
                 </tbody>
               </table>
             </div>
