@@ -25,12 +25,12 @@ const ClienteForm = ({ seleccion, pago, formularioData }) => {
       formData.seleccion = seleccion;
       formData.pago = pago;
       // formData.formularioData = formularioData;
-      formData.anio = formularioData.year;
-      formData.marca = formularioData.marca;
-      formData.modelo = formularioData.modelo;
-      formData.version = formularioData.version;
-      formData.color = formularioData.color;
-      formData.cp = formularioData.cp;
+      formData.anio = formularioData.year || "";
+      formData.marca = formularioData.marca || "";
+      formData.modelo = formularioData.modelo || "";
+      formData.version = formularioData.version || "";
+      formData.color = formularioData.color || "";
+      formData.cp = formularioData.cp || "";
 
       // Realiza el envío de los datos utilizando emailjs
       const result = await emailjs.send(

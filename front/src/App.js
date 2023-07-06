@@ -9,6 +9,7 @@ import AddProduct from "./components/AdminDashboard/AddProduct";
 import Error from "./components/Error/Error";
 import Comprar from "./components/Comprar/Comprar";
 import UpdateProduct from "./components/AdminDashboard/UpdateProduct";
+import Detail from "./components/Detail/Detail";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/admin-add" element={<AddProduct />} />
           <Route path="/admin-edit/:id" element={<UpdateProduct />} />
           <Route path="/comprar" element={<Comprar />} />
+          <Route exact path="/detail/:id" element={<Detail />} />
           <Route path="*" element={<Error />} />
 
           {/* Agrega tus rutas adicionales aquí */}

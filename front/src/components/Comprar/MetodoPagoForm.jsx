@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import VehiculoUsadoForm from "./VehiculoUsadoForm";
 import ClienteForm from "./ClienteForm";
 import FinanciarForm from "./FinanciarForm";
+import EfectivoForm from "./EfectivoForm";
 
 const MetodoPagoForm = ({ seleccion }) => {
   const [pago, setPago] = useState("");
@@ -12,7 +13,7 @@ const MetodoPagoForm = ({ seleccion }) => {
   // Renderiza el componente correspondiente según la selección
   const renderComponente = () => {
     if (pago === "Efectivo") {
-      return <ClienteForm seleccion={seleccion} pago={pago} />;
+      return <EfectivoForm seleccion={seleccion} pago={pago} />;
     } else if (pago === "Auto usado") {
       return <VehiculoUsadoForm seleccion={seleccion} pago={pago} />;
     } else if (pago === "Financiado") {
