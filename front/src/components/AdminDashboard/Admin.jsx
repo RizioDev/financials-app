@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getVehiculos as fetchVehiculos } from "../../store/actions/vehiculosActions";
 import { BsFillPencilFill, BsX, BsFillTrashFill } from "react-icons/bs";
+import swal from "sweetalert2";
+import { updateVehiculo } from "../../store/actions/vehiculosActions";
+
 import UpdateProduct from "./UpdateProduct";
 
 const Admin = ({ vehiculos, getVehiculos }) => {
@@ -20,7 +23,27 @@ const Admin = ({ vehiculos, getVehiculos }) => {
   };
 
   const handleDeleteClick = (vehiculo) => {
-    // Aquí puedes agregar la lógica para eliminar el vehículo
+    swal
+      .fire({
+        title: "¿Estás seguro?",
+        text: "Esta acción no se puede deshacer",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Borrar",
+        cancelButtonText: "Cancelar",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // Actualizar el vehículo con la disponibilidad "vendido"
+          const updatedVehiculo = { ...vehiculo, disponibilidad: "vendido" };
+          updateVehiculo(vehiculo.id, updatedVehiculo); // Llamar a updateVehiculo pasando el id y el vehículo actualizado
+
+          // Actualizar la página
+          window.location.reload();
+        }
+      });
   };
 
   const handleCloseModal = () => {
@@ -280,6 +303,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getVehiculos: () => dispatch(fetchVehiculos()),
+  updateVehiculo: (id, updatedVehiculo) =>
+    dispatch(updateVehiculo(id, updatedVehiculo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);
