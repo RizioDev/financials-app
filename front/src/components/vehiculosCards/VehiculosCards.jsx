@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getVehiculos } from "../../store/actions/vehiculosActions";
-import foto from "../../img/vw-gol-cca-usados.jpeg";
+import foto from "../../img/feat.webp";
 import { Link } from "react-router-dom"; // Importa Link de React Router
 
 const VehiculosCards = ({ vehiculos, getVehiculos }) => {
@@ -10,41 +10,35 @@ const VehiculosCards = ({ vehiculos, getVehiculos }) => {
   }, [getVehiculos]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 hover:contrast-125 hover:shadow-2xl transition-all">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 bg-sky-100">
       {vehiculos.map((vehiculo) => {
         return (
           <div
             key={vehiculo.id}
-            className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="w-full max-w-sm bg-white border border-gray-200 mt-2 mb-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
           >
-            <Link to={`/detail/${vehiculo.id}`}>
-              {" "}
-              {/* Utiliza Link en lugar de 'a' */}
-              <img
-                className="p-8 rounded-t-lg"
-                src={foto}
-                alt="product image"
-              />
-            </Link>
-            <div className="px-5 pb-5">
+            <div className="px-5 pb-5 mt-5">
               {vehiculo.disponibilidad === "vendido" && (
                 <h1 className="text-red-500">Vendido</h1>
               )}
               <Link to={`/detail/${vehiculo.id}`}>
                 {" "}
                 {/* Utiliza Link en lugar de 'a' */}
-                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-2xl font-bold font-noto justify-center text-left text-black dark:text-white uppercase">
                   {vehiculo.marca} {vehiculo.modelo}
                 </h5>
               </Link>
+              <h5 className="text-xl font-semibold font-noto justify-center text-left text-black dark:text-white">
+                CUOTAS DESDE
+              </h5>
               <Link to={`/detail/${vehiculo.id}`}>
                 {" "}
                 {/* Utiliza Link en lugar de 'a' */}
-                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                  {vehiculo.año} | {vehiculo.kilometraje} km
+                <h5 className="text-2xl font-semibold tracking-tight font-noto text-black dark:text-white">
+                  ${vehiculo.precio}
                 </h5>
               </Link>
-              <div className="flex items-center mt-2.5 mb-5">
+              {/* <div className="flex items-center mt-2.5 mb-5">
                 <svg
                   aria-hidden="true"
                   className="w-5 h-5 text-yellow-300"
@@ -98,21 +92,30 @@ const VehiculosCards = ({ vehiculos, getVehiculos }) => {
                 <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
                   5.0
                 </span>
-              </div>
+              </div> */}
+              <Link to={`/detail/${vehiculo.id}`}>
+                {" "}
+                {/* Utiliza Link en lugar de 'a' */}
+                <img
+                  className="p-2 mb-8 rounded-t-lg"
+                  src={foto}
+                  alt="product image"
+                />
+              </Link>
 
               <div className="flex items-center justify-between">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                  ${vehiculo.precio}
-                </span>
-                {/* <a
-              href="/a"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Ver más...
-            </a> */}
                 <Link to={`/detail/${vehiculo.id}`}>
-                  <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Ver más...
+                  <button className="text-white bg-yellow-200 hover:bg-yellow-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <p className="text-black font-noto text-xl font-bold">
+                      Cotizar
+                    </p>
+                  </button>
+                </Link>
+                <Link to={`/detail/${vehiculo.id}`}>
+                  <button className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <p className="text-white font-noto text-xl font-bold">
+                      Reservar
+                    </p>
                   </button>
                 </Link>
               </div>

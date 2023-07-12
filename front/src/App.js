@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="">
       <Router>
-        <NavBar /> {/* Agrega la barra de navegación */}
+        <NavBar />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/catalogo" element={<VehiculosCards />} />
