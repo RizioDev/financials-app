@@ -19,7 +19,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className="bg-sky-900 border-sky-200 dark:bg-gray-900">
+    <nav className="bg-blue-600 border-sky-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" className="flex items-center">
           <img
@@ -35,7 +35,7 @@ const NavBar = () => {
           <button
             data-collapse-toggle="navbar-search"
             type="button"
-            className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+            className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100  rounded-lg text-sm p-2.5 mr-1"
           >
             <svg
               className="w-6 h-6"
@@ -52,23 +52,16 @@ const NavBar = () => {
             </svg>
             <span className="sr-only">Menu</span>
           </button>
-
-          <button
-            type="button"
-            className="focus:outline-none text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-orange-900"
-          >
-            Llamar al 0800
-          </button>
         </div>
         <div
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-search"
         >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-sky-900 md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
+          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-blue-600 md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
             <li>
               <a
                 href="/catalogo"
-                className="block py-2 pl-3 pr-4 text-slate-100 bg-sky-900 rounded hover:text-slate-200  md:p-0 "
+                className="block py-2 pl-3 pr-4 text-slate-100 bg-blue-600 rounded hover:text-slate-200  md:p-0 "
               >
                 Catálogo
               </a>
@@ -76,7 +69,7 @@ const NavBar = () => {
             <li>
               <a
                 href="/vender"
-                className="block py-2 pl-3 pr-4 text-slate-100 bg-sky-900 rounded hover:text-slate-200  md:p-0 "
+                className="block py-2 pl-3 pr-4 text-slate-100 bg-blue-600 rounded hover:text-slate-200  md:p-0 "
               >
                 Vender
               </a>
@@ -84,7 +77,7 @@ const NavBar = () => {
             <li>
               <a
                 href="/como-funciona"
-                className="block py-2 pl-3 pr-4 text-slate-100 bg-sky-900 rounded hover:text-slate-200  md:p-0 "
+                className="block py-2 pl-3 pr-4 text-slate-100 bg-blue-600 rounded hover:text-slate-200  md:p-0 "
               >
                 ¿Cómo funciona?
               </a>

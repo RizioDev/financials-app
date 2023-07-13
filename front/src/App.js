@@ -11,6 +11,7 @@ import Comprar from "./components/Comprar/Comprar";
 import UpdateProduct from "./components/AdminDashboard/UpdateProduct";
 import Detail from "./components/Detail/Detail";
 import Bot from "./components/ChatBot/Bot";
+import Catalogo from "./components/vehiculosCards/Catalogo";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/catalogo" element={<VehiculosCards />} />
+          <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/financia-tu-vehiculo" element={<Financia />} />
           <Route path="/admin-dashboard" element={<Admin />} />
           <Route path="/admin-add" element={<AddProduct />} />

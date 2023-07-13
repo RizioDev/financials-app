@@ -22,6 +22,7 @@ module.exports = {
     },
     fontFamily: {
       noto: ["'Noto Serif', serif;"],
+      pt: ["'PT Serif', serif"],
     },
     plugins: [],
   },

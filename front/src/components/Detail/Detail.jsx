@@ -1,116 +1,140 @@
-import React from "react";
-import { connect, useSelector } from "react-redux";
-import { useParams } from "react-router-dom"; // Importa useParams
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 import foto from "../../img/vw-gol-cca-usados.jpeg";
+import { FaWhatsapp } from "react-icons/fa";
+import { Button } from "flowbite-react";
+import Acordion from "./Acordion";
+import Lapse from "./Lapse";
 
 const Detail = ({ vehiculos }) => {
-  const { id } = useParams(); // Obtiene los parámetros de la URL
-
-  const vehiculo = vehiculos.find((vehiculo) => vehiculo.id === id); // Busca el vehículo correspondiente en el estado
+  const { id } = useParams();
+  const vehiculo = vehiculos.find((vehiculo) => vehiculo.id === id);
 
   if (!vehiculo) {
     return <div>Cargando...</div>;
   }
 
   return (
-    <div>
-      <div className="max-w-md mx-auto bg-white shadow-md p-8">
-        <img src={foto} alt={vehiculo.id} />
-        {vehiculo.disponibilidad === "vendido" && (
-          <h1 className="text-red-500">Vendido</h1>
-        )}
-
-        <h2 className="text-2xl font-bold mb-4">
-          {vehiculo.marca} {vehiculo.modelo}{" "}
-          <p>
-            <span className="font-semibold">Precio:</span> ${vehiculo.precio}
+    <div className="flex flex-col md:flex-row bg-sky-50">
+      <div className="md:w-1/2">
+        <div className="mt-5">
+          <p className="inline-block font-noto bg-green-400 text-white rounded-full capitalize font-bold px-3 py-[-5px] ml-2">
+            {vehiculo.disponibilidad}
           </p>
-        </h2>
 
-        <div class="flex items-center space-x-1">
-          <svg
-            class="w-4 h-4 text-yellow-300"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg
-            class="w-4 h-4 text-yellow-300"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg
-            class="w-4 h-4 text-yellow-300"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg
-            class="w-4 h-4 text-yellow-300"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg
-            class="w-4 h-4 text-gray-300 dark:text-gray-500"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
+          <p className="text-2xl md:text-4xl mb-1 font-bold uppercase">
+            <span className="font-semibold">|</span> {vehiculo.marca}{" "}
+            {vehiculo.modelo} 1.{vehiculo.puertas} AT6
+          </p>
+          <p className="text-xl mb-1 text-gray-600 font-noto">
+            Entrega Asegurada
+          </p>
         </div>
 
-        <div>
-          <p>
-            <span className="font-semibold">Año:</span> {vehiculo.año}
+        <img
+          src={foto}
+          alt="foto"
+          className="w-full h-auto max-w-[650px] mx-auto md:mx-0"
+        />
+
+        <div className="ml-1 mt-2">
+          <p className="font-bold font-pt">
+            ✅ Tasa de 0% duante todo el plan | ✅ Financiacion |{" "}
+            <span className="ml-20">Cuotas desde</span>
+            <p>
+              ✅ Tomamos tu usado como parte de pago{" "}
+              <span className="bg-gray-300 ml-[160px] text-2xl">$109.000</span>
+            </p>
           </p>
-          <p>
-            <span className="font-semibold">Kilometraje:</span>{" "}
-            {vehiculo.kilometraje} km
-          </p>
-          <p>
-            <span className="font-semibold">Estado:</span> {vehiculo.estado}
-          </p>
-          <p>
-            <span className="font-semibold">Combustible:</span>{" "}
-            {vehiculo.combustible}
-          </p>
-          <p>
-            <span className="font-semibold">Transmision:</span>{" "}
-            {vehiculo.transmision}
-          </p>
-          <p>
-            <span className="font-semibold">Exterior:</span> {vehiculo.exterior}
-          </p>
-          <p>
-            <span className="font-semibold">Multimedia:</span>{" "}
-            {vehiculo.multimedia}
-          </p>
-          <p>
-            <span className="font-semibold">Confort:</span> {vehiculo.confort}
-          </p>
-          <div className="flex justify-center mt-10">
-            <button className="text-white bg-orange-500 hover:bg-orange-400 focus:ring-4 focus:outline-none focus:ring-orange-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-              Contactar
+          <div className="mt-5"></div>
+          <Acordion />
+        </div>
+      </div>
+      <div className="md:w-1/2 md:mt-16 md:ml-24">
+        <div className="mb-6 flex items-center ml-16">
+          <span>
+            <img
+              src="https://financialsmotors.com.ar/wp-content/uploads/2022/12/cropped-fmotors_Mesa-de-trabajo-1-2-80x106.png"
+              className="h-10 mr-3"
+              alt="Financials Logo"
+            />
+          </span>
+          <h1 className="text-2xl text-black uppercase font-noto">
+            Solicitar <span className="font-bold">información</span>
+          </h1>
+        </div>
+        <form className="max-w-md mt-7 mx-auto md:mx-0">
+          <h1 className="text-black font-noto font-bold text-xl md:text-xl">
+            Anticipo
+          </h1>
+          <div className="mb-1">
+            <select
+              id="name"
+              name="name"
+              className="w-full px-4 py-3 font-semibold border border-gray-400 rounded-lg focus:outline-none focus:border-primary-300"
+            >
+              <option value="Auto usado">Auto usado</option>
+              <option value="Efectivo">Efectivo</option>
+              <option value="Financiado">Financiado</option>
+            </select>
+          </div>
+          <div className="mb-1">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="👤 Nombre y apellido"
+              className="w-full px-4 py-3 border border-gray-400 font-semibold  rounded-lg focus:outline-none focus:border-primary-300"
+            />
+          </div>
+          <div className="mb-1">
+            <input
+              type="text"
+              id="dni"
+              name="dni"
+              placeholder="🗨 Numero de DNI"
+              className="w-full px-4 py-3 border border-gray-400 font-semibold  rounded-lg focus:outline-none focus:border-primary-300"
+            />
+          </div>
+          <div className="mb-1">
+            <input
+              type="number"
+              id="telefono"
+              name="telefono"
+              placeholder="📞 Teléfono (Cod Area + Número)"
+              className="w-full px-4 py-3 font-semibold border border-gray-400 rounded-lg focus:outline-none focus:border-primary-300"
+            />
+          </div>
+          <div className="mb-1">
+            <input
+              type="text"
+              id="localidad"
+              name="localidad"
+              placeholder="📍 Localidad"
+              className="w-full px-4 py-3 border font-semibold border-gray-400 rounded-lg focus:outline-none focus:border-primary-300"
+            />
+          </div>
+          <div className="flex justify-end mt-3">
+            <button
+              type="submit"
+              className="px-6 font-noto font-bold w-full py-3 text-lg text-white rounded-lg bg-orange-500 hover:bg-orange-400 focus:outline-none focus:bg-primary-400"
+            >
+              Reservar
             </button>
           </div>
-
-          {/* Agrega aquí más detalles del vehículo si es necesario */}
+          <div className="flex items-center justify-end space-x-2">
+            <button
+              type="submit"
+              className="flex items-center font-bold justify-center px-6 w-full mt-1 py-3 text-lg font-noto text-white rounded-lg bg-green-600 hover:bg-green-500 focus:outline-none focus:bg-primary-400"
+            >
+              <FaWhatsapp size={20} className="mr-2" />
+              <span className="text-center">Realizar presupuesto</span>
+            </button>
+          </div>
+        </form>
+        <div className="mt-2 mr-5">
+          <Lapse />
         </div>
       </div>
     </div>
